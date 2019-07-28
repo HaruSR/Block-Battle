@@ -10,8 +10,8 @@ public class StartButton : MonoBehaviour
 
     void Awake() {
         Debug.Log("a");
-        GameObject buttonA = GameObject.Find("Tile_User_Name/Button");
-        buttonA.SetActive(false);
+        // GameObject buttonA = GameObject.Find("Tile_User_Name/Button");
+        // buttonA.SetActive(false);
         this.gameObject.GetComponent<Button>().transform.position = new Vector3(this.gameObject.GetComponent<Button>().transform.position.x + 30,this.gameObject.GetComponent<Button>().transform.position.y,0);
 
     }
