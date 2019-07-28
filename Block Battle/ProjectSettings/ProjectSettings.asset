@@ -606,10 +606,10 @@ PlayerSettings:
   facebookXfbml: 0
   facebookFrictionlessRequests: 1
   apiCompatibilityLevel: 6
-  cloudProjectId: 
+  cloudProjectId: fbeb6824-6688-4a7d-95d6-1377fa39d797
   framebufferDepthMemorylessMode: 0
-  projectName: 
-  organizationId: 
+  projectName: Block Battle
+  organizationId: urca
   cloudEnabled: 0
   enableNativePlatformBackendsForNewInputSystem: 0
   disableOldInputManagerSupport: 0
