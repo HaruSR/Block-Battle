@@ -5,13 +5,18 @@ using UnityEngine.UI;
 
 public class ExchangeImage : MonoBehaviour
 {
-    float changeTime;
-        public Sprite Image1;
-        public Sprite Image2;
+    public Vector3 scale;
+    float changeTime = 0;
+    public Sprite Image1;
+    public Sprite Image2;
+    private Vector2 currrentSize;
+    
     // Start is called before the first frame update
     void Start()
     {
-        
+        gameObject.GetComponent<Image>().sprite = Image1;
+        currrentSize = gameObject.transform.localScale; 
+       
     }
 
     // Update is called once per frame
@@ -21,10 +26,12 @@ public class ExchangeImage : MonoBehaviour
 
         if(changeTime < 0.5){
             gameObject.GetComponent<Image>().sprite = Image1;
+            gameObject.transform.localScale = currrentSize;
             return;
         }
         else if(changeTime >= 0.5 && changeTime < 1){
             gameObject.GetComponent<Image>().sprite = Image2;
+            gameObject.transform.localScale =  new Vector3(scale.x, scale.y, scale.z);
            return;
         }
             changeTime = 0;
