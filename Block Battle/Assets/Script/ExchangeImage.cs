@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class ExchangeImage : MonoBehaviour
 {
     public Vector3 scale;
+    public float Speed = 1f;
     float changeTime = 0;
     public Sprite Image1;
     public Sprite Image2;
@@ -23,7 +24,8 @@ public class ExchangeImage : MonoBehaviour
     void Update()
     {
         changeTime += Time.deltaTime;
-
+        gameObject.transform.position =new Vector2(gameObject.transform.position.x - (Time.deltaTime * Speed),gameObject.transform.position.y);
+        if(gameObject.transform.position.x < -200f)gameObject.transform.position = new Vector2(150f,gameObject.transform.position.y);
         if(changeTime < 0.5){
             gameObject.GetComponent<Image>().sprite = Image1;
             gameObject.transform.localScale = currrentSize;
