@@ -13,6 +13,9 @@ public class StartButton : MonoBehaviour
 
     public void SwitchScreen() {
         Game_Screen.SetActive(true);
+        iTween.ScaleFrom(Title_Screen, iTween.Hash("x", 10f));
         Title_Screen.SetActive(false);
+        
+        
     }
 }
