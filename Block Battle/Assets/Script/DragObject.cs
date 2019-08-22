@@ -1,24 +1,55 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-///<summary>
-///ドラッグでGameObjectを操作させるオブジェクト
-///操作対象のGameObjectにこのスクリプトをアタッチ
-///<summary>
-public class DragObject : MonoBehaviour, IDragHandler
+[RequireComponent(typeof(Image))]
+public class DragObject : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
-    public RectTransform m_rectTransform = null;
-    
-    private void Reset()
+    private Transform canvasTran;
+    private GameObject draggingObject;
+
+    void Awake()
     {
-        m_rectTransform = GetComponent<RectTransform>();
+        canvasTran = transform.parent.parent;
+    }   
+
+    public void OnBeginDrag(PointerEventData pointerEventData)
+    {
+        CreateDragObject();
+        draggingObject.transform.position = pointerEventData.position;
     }
-    
-    public void OnDrag( PointerEventData e )
+
+    public void OnDrag(PointerEventData pointerEventData)
     {
-        m_rectTransform.position += new Vector3( e.delta.x, e.delta.y, 0f );
+        draggingObject.transform.position = pointerEventData.position;
+    }
+
+    public void OnEndDrag(PointerEventData pointerEventData)
+    {
+        gameObject.GetComponent<Image>().color = Vector4.one;
+        Destroy(draggingObject);
+    }
+
+    // ドラッグオブジェクト作成
+    private void CreateDragObject()
+    {
+        draggingObject = new GameObject("Dragging Object");
+        draggingObject.transform.SetParent(canvasTran);
+        draggingObject.transform.SetAsLastSibling();
+        draggingObject.transform.localScale = Vector3.one;
+
+        // レイキャストがブロックされないように
+        CanvasGroup canvasGroup = draggingObject.AddComponent<CanvasGroup>();
+        canvasGroup.blocksRaycasts = false;
+
+        Image draggingImage = draggingObject.AddComponent<Image>();
+        Image sourceImage = GetComponent<Image>();
+
+        draggingImage.sprite = sourceImage.sprite;
+        draggingImage.rectTransform.sizeDelta = sourceImage.rectTransform.sizeDelta;
+        draggingImage.color = sourceImage.color;
+        draggingImage.material = sourceImage.material;
+
+        gameObject.GetComponent<Image>().color = Vector4.one * 0.6f;
     }
 }
-
